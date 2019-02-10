@@ -187,4 +187,26 @@ class PieRotStepView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : PieRotStepView) {
+
+        private val animator : Animator = Animator(view)
+        private val prs : PieRotStep = PieRotStep(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            prs.draw(canvas, paint)
+            animator.animate {
+                prs.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            prs.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
