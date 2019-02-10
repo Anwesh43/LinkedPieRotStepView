@@ -210,4 +210,13 @@ class PieRotStepView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : PieRotStepView {
+            val view : PieRotStepView = PieRotStepView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
