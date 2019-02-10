@@ -20,7 +20,7 @@ val sizeFactor : Float = 2.9f
 val strokeFactor : Int = 90
 val foreColor : Int = Color.parseColor("#1976D2")
 val backColor : Int = Color.parseColor("#BDBDBD")
-val rotDeg : Float = 60f
+val rotDeg : Float = 30f
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -44,10 +44,10 @@ fun Canvas.drawPRSNode(i : Int, scale : Float, paint : Paint) {
     paint.strokeCap = Paint.Cap.ROUND
     save()
     translate(w / 2, gap * (i + 1))
-    drawLine(-wGap * sc2, hGap, wGap * sc2, hGap, paint)
+    drawLine(-wGap * sc2, -hGap, wGap * sc2, -hGap, paint)
     for (j in 0..(lines - 1)) {
         save()
-        translate(j * 2 * wGap, 0f)
+        translate(-wGap + j * 2 * wGap, 0f)
         rotate(rotDeg * sc1.divideScale(j, lines) * j.sf())
         drawLine(0f, 0f, 0f, -size, paint)
         restore()
@@ -216,7 +216,7 @@ class PieRotStepView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : PieRotStepView {
             val view : PieRotStepView = PieRotStepView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
