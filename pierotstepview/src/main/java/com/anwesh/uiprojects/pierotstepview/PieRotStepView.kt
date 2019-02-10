@@ -160,7 +160,31 @@ class PieRotStepView(ctx : Context) : View(ctx) {
                 return curr
             }
             cb()
-            return this 
+            return this
+        }
+    }
+
+    data class PieRotStep(var i : Int) {
+
+        private val root : PRSNode = PRSNode(0)
+        private var curr : PRSNode = root
+        private var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            root.draw(canvas, paint)
+        }
+
+        fun update(cb : (Int, Float) -> Unit) {
+            curr.update {i, scl ->
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(i, scl)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
         }
     }
 }
